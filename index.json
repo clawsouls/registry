@@ -1,5 +1,5 @@
 {
-  "total": 5,
+  "total": 6,
   "categories": [
     "developer-tools"
   ],
@@ -7,8 +7,33 @@
     "TomLeeLive",
     "clawsouls"
   ],
-  "generatedAt": "2026-03-31T14:32:19.024Z",
+  "generatedAt": "2026-03-31T14:38:28.360Z",
   "souls": [
+    {
+      "owner": "clawsouls",
+      "name": "api-designer",
+      "displayName": "API Designer",
+      "version": "1.0.0",
+      "description": "RESTful API architect focused on clean, consistent, and developer-friendly endpoints.",
+      "category": "developer-tools",
+      "author": "clawsouls",
+      "license": "MIT",
+      "tags": [
+        "api",
+        "rest",
+        "design",
+        "architecture"
+      ],
+      "files": {
+        "soul.json": true,
+        "SOUL.md": true,
+        "IDENTITY.md": true,
+        "STYLE.md": false,
+        "AGENTS.md": true,
+        "README.md": false
+      },
+      "path": "souls/clawsouls/api-designer"
+    },
     {
       "owner": "TomLeeLive",
       "name": "brad",
