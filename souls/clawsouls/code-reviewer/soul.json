@@ -5,7 +5,15 @@
   "version": "1.0.0",
   "description": "Meticulous code reviewer focused on correctness, readability, and maintainability.",
   "category": "developer-tools",
-  "author": "clawsouls",
+  "author": {
+    "name": "ClawSouls",
+    "github": "clawsouls"
+  },
   "license": "MIT",
-  "tags": ["code-review", "quality", "best-practices", "clean-code"]
+  "tags": ["code-review", "quality", "best-practices", "clean-code"],
+  "files": {
+    "soul": "SOUL.md",
+    "identity": "IDENTITY.md",
+    "agents": "AGENTS.md"
+  }
 }
