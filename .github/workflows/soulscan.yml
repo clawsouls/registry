@@ -1,0 +1,133 @@
+name: SoulScan PR Validation (v2)
+
+on:
+  pull_request:
+    paths:
+      - 'souls/**'
+
+permissions:
+  pull-requests: write
+  contents: read
+
+jobs:
+  soulscan:
+    name: SoulScan Safety Verification
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Find changed soul directories
+        id: find-souls
+        run: |
+          # Get list of changed files in souls/
+          CHANGED=$(git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }} -- 'souls/' | head -100)
+          
+          # Extract unique soul directories (souls/owner/name/)
+          DIRS=$(echo "$CHANGED" | sed 's|^\(souls/[^/]*/[^/]*\)/.*|\1|' | sort -u)
+          
+          echo "dirs<<EOF" >> $GITHUB_OUTPUT
+          echo "$DIRS" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+          
+          echo "Found soul directories:"
+          echo "$DIRS"
+
+      - name: Validate with ClawSouls CLI
+        id: validate
+        run: |
+          RESULTS=""
+          PASS=true
+          
+          while IFS= read -r dir; do
+            [ -z "$dir" ] && continue
+            echo "=== Validating $dir ==="
+            
+            # Check required files exist
+            if [ ! -f "$dir/soul.json" ] || [ ! -f "$dir/SOUL.md" ]; then
+              RESULTS="$RESULTS\n❌ **$dir**: Missing required files (soul.json, SOUL.md)"
+              PASS=false
+              continue
+            fi
+            
+            # Run ClawSouls validate with SoulScan
+            OUTPUT=$(npx clawsouls validate "$dir" --soulscan 2>&1)
+            EXIT_CODE=$?
+            
+            echo "$OUTPUT"
+            
+            # Parse output for grade/score information
+            if echo "$OUTPUT" | grep -q "SoulScan: 100/100 — Verified"; then
+              GRADE="A+ (100/100)"
+              EMOJI="✅"
+            elif echo "$OUTPUT" | grep -q "✅ SoulScan:"; then
+              # Extract score from "✅ SoulScan: XX/100 — Grade" pattern
+              SCAN_LINE=$(echo "$OUTPUT" | grep "✅ SoulScan:" | head -1)
+              GRADE=$(echo "$SCAN_LINE" | sed 's/.*SoulScan: \([^—]*\).*$/\1/' | tr -d ' ')
+              EMOJI="✅"
+            elif echo "$OUTPUT" | grep -q "⚠️.*SoulScan:"; then
+              SCAN_LINE=$(echo "$OUTPUT" | grep "⚠️.*SoulScan:" | head -1)
+              GRADE=$(echo "$SCAN_LINE" | sed 's/.*SoulScan: \([^—]*\).*$/\1/' | tr -d ' ')
+              EMOJI="⚠️"
+            else
+              GRADE="Unknown"
+              EMOJI="❓"
+            fi
+            
+            # Check exit code for pass/fail
+            if [ $EXIT_CODE -eq 0 ]; then
+              RESULTS="$RESULTS\n\n### ✅ $dir — $GRADE"
+            else
+              RESULTS="$RESULTS\n\n### ❌ $dir — Failed validation"
+              PASS=false
+            fi
+            
+            # Extract any specific issues/warnings from output
+            WARNINGS=$(echo "$OUTPUT" | grep -E "⚠️|🔵|🟡" | head -5)
+            if [ -n "$WARNINGS" ]; then
+              RESULTS="$RESULTS\n\n$WARNINGS"
+            fi
+            
+          done <<< "${{ steps.find-souls.outputs.dirs }}"
+          
+          echo "results<<EOF" >> $GITHUB_OUTPUT
+          echo -e "$RESULTS" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+          
+          echo "pass=$PASS" >> $GITHUB_OUTPUT
+
+      - name: Post SoulScan results
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const results = `${{ steps.validate.outputs.results }}`;
+            const pass = '${{ steps.validate.outputs.pass }}' === 'true';
+            
+            const body = [
+              '## 🔍 SoulScan Validation Results',
+              '',
+              pass ? '✅ **All checks passed** — eligible for merge.' : '❌ **Issues found** — please fix before merge.',
+              '',
+              results,
+              '',
+              '---',
+              '*Powered by [SoulScan](https://clawsouls.ai/soulscan) — 53-pattern AI persona safety verification*',
+            ].join('\n');
+            
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body,
+            });
+
+      - name: Fail if validation failed
+        if: steps.validate.outputs.pass != 'true'
+        run: exit 1

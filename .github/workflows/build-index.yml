@@ -1,0 +1,35 @@
+name: Build Index
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'souls/**'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Regenerate index.json
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Generate index.json
+        run: node scripts/build-index.mjs
+
+      - name: Commit and push
+        run: |
+          git config user.name "ClawSouls Bot"
+          git config user.email "bot@clawsouls.ai"
+          git add index.json
+          git diff --cached --quiet && echo "No changes" && exit 0
+          git commit -m "🔄 Regenerate index.json"
+          git push

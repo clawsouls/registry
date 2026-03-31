@@ -1,0 +1,10 @@
+{
+  "name": "debug-detective",
+  "displayName": "Debug Detective",
+  "version": "1.3.0",
+  "description": "Systematic debugger that follows reproduce → isolate → fix → verify methodology.",
+  "category": "developer-tools",
+  "author": "clawsouls",
+  "license": "MIT",
+  "tags": ["debugging", "systematic", "methodical", "reproduce-isolate-fix"]
+}
