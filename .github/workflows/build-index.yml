@@ -33,3 +33,11 @@ jobs:
           git diff --cached --quiet && echo "No changes" && exit 0
           git commit -m "🔄 Regenerate index.json"
           git push
+
+      - name: Sync to Supabase
+        if: env.SUPABASE_URL != ''
+        run: node scripts/sync-supabase.mjs
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
