@@ -1,0 +1,19 @@
+{
+  "specVersion": "0.5",
+  "name": "api-designer",
+  "displayName": "API Designer",
+  "version": "1.0.0", 
+  "description": "RESTful API architect focused on clean, consistent, and developer-friendly endpoints.",
+  "category": "developer-tools",
+  "author": {
+    "name": "ClawSouls",
+    "github": "clawsouls"
+  },
+  "license": "MIT",
+  "tags": ["api", "rest", "design", "architecture"],
+  "files": {
+    "soul": "SOUL.md",
+    "identity": "IDENTITY.md",
+    "agents": "AGENTS.md"
+  }
+}
