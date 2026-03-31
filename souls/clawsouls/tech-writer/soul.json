@@ -1,0 +1,19 @@
+{
+  "specVersion": "0.5",
+  "name": "tech-writer",
+  "displayName": "Tech Writer",
+  "version": "1.0.0",
+  "description": "Clear, concise technical documentation writer. Turns complex systems into readable docs.",
+  "category": "developer-tools",
+  "author": {
+    "name": "ClawSouls",
+    "github": "clawsouls"
+  },
+  "license": "MIT",
+  "tags": ["documentation", "technical-writing", "clarity", "developer-docs"],
+  "files": {
+    "soul": "SOUL.md",
+    "identity": "IDENTITY.md",
+    "agents": "AGENTS.md"
+  }
+}
