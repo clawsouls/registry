@@ -1,4 +1,4 @@
-# SoulClaw Registry
+# ClawSouls Registry
 
 The open registry for AI agent personas built with [Soul Spec](https://soulspec.org).
 
