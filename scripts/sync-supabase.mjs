@@ -223,10 +223,19 @@ async function main() {
         continue;
       }
 
-      // 2. Check existing soul
-      const existing = await supabaseGet('souls',
-        `owner_name=eq.${encodeURIComponent(soul.owner)}&name=eq.${encodeURIComponent(soul.name)}&select=id,latest_version`
+      // 2. Check existing soul (global name uniqueness)
+      const existingGlobal = await supabaseGet('souls',
+        `name=eq.${encodeURIComponent(soul.name)}&select=id,latest_version,owner_name`
       );
+
+      // If soul name exists under a different owner, skip (platform enforces global uniqueness)
+      if (existingGlobal.length > 0 && existingGlobal[0].owner_name !== soul.owner) {
+        console.log(`  ⚠️ SKIP — name "${soul.name}" already exists under ${existingGlobal[0].owner_name} (global uniqueness)`);
+        skipped++;
+        continue;
+      }
+
+      const existing = existingGlobal;
 
       const soulPath = join(process.cwd(), soul.path);
       const { files, fileContents } = readSoulFiles(soulPath);
