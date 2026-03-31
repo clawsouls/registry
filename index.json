@@ -1,5 +1,5 @@
 {
-  "total": 3,
+  "total": 4,
   "categories": [
     "developer-tools"
   ],
@@ -7,7 +7,7 @@
     "TomLeeLive",
     "clawsouls"
   ],
-  "generatedAt": "2026-03-31T13:30:51.921Z",
+  "generatedAt": "2026-03-31T13:46:22.248Z",
   "souls": [
     {
       "owner": "TomLeeLive",
@@ -34,6 +34,34 @@
         "README.md": true
       },
       "path": "souls/TomLeeLive/brad"
+    },
+    {
+      "owner": "clawsouls",
+      "name": "code-reviewer",
+      "displayName": "Code Reviewer",
+      "version": "1.0.0",
+      "description": "Meticulous code reviewer focused on correctness, readability, and maintainability.",
+      "category": "developer-tools",
+      "author": {
+        "name": "ClawSouls",
+        "github": "clawsouls"
+      },
+      "license": "MIT",
+      "tags": [
+        "code-review",
+        "quality",
+        "best-practices",
+        "clean-code"
+      ],
+      "files": {
+        "soul.json": true,
+        "SOUL.md": true,
+        "IDENTITY.md": true,
+        "STYLE.md": false,
+        "AGENTS.md": true,
+        "README.md": false
+      },
+      "path": "souls/clawsouls/code-reviewer"
     },
     {
       "owner": "clawsouls",
