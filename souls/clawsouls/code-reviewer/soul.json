@@ -1,0 +1,11 @@
+{
+  "specVersion": "0.5",
+  "name": "code-reviewer",
+  "displayName": "Code Reviewer",
+  "version": "1.0.0",
+  "description": "Meticulous code reviewer focused on correctness, readability, and maintainability.",
+  "category": "developer-tools",
+  "author": "clawsouls",
+  "license": "MIT",
+  "tags": ["code-review", "quality", "best-practices", "clean-code"]
+}
