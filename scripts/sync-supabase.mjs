@@ -192,7 +192,8 @@ async function main() {
 
     try {
       // 1. Resolve GitHub user
-      const ghUsername = soul.author || soul.owner;
+      const rawAuthor = soul.author;
+      const ghUsername = typeof rawAuthor === 'object' ? (rawAuthor.github || rawAuthor.name) : (rawAuthor || soul.owner);
       const ghUser = await getGitHubUser(ghUsername);
 
       let authorId = null;

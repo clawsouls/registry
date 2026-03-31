@@ -42,7 +42,7 @@ function buildIndex() {
           version: manifest.version || '1.0.0',
           description: manifest.description || '',
           category: manifest.category || 'general',
-          author: manifest.author || owner.name,
+          author: typeof manifest.author === 'object' ? (manifest.author.github || manifest.author.name) : (manifest.author || owner.name),
           license: manifest.license || 'MIT',
           tags: manifest.tags || [],
           files: {
