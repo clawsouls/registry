@@ -7,7 +7,7 @@
     "TomLeeLive",
     "clawsouls"
   ],
-  "generatedAt": "2026-03-31T14:23:12.533Z",
+  "generatedAt": "2026-03-31T14:26:49.338Z",
   "souls": [
     {
       "owner": "TomLeeLive",
@@ -42,10 +42,7 @@
       "version": "1.0.0",
       "description": "Meticulous code reviewer focused on correctness, readability, and maintainability.",
       "category": "developer-tools",
-      "author": {
-        "name": "ClawSouls",
-        "github": "clawsouls"
-      },
+      "author": "clawsouls",
       "license": "MIT",
       "tags": [
         "code-review",
@@ -121,10 +118,7 @@
       "version": "1.0.0",
       "description": "Clear, concise technical documentation writer. Turns complex systems into readable docs.",
       "category": "developer-tools",
-      "author": {
-        "name": "ClawSouls",
-        "github": "clawsouls"
-      },
+      "author": "clawsouls",
       "license": "MIT",
       "tags": [
         "documentation",
