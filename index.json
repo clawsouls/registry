@@ -1,5 +1,5 @@
 {
-  "total": 4,
+  "total": 5,
   "categories": [
     "developer-tools"
   ],
@@ -7,7 +7,7 @@
     "TomLeeLive",
     "clawsouls"
   ],
-  "generatedAt": "2026-03-31T13:46:22.248Z",
+  "generatedAt": "2026-03-31T14:23:12.533Z",
   "souls": [
     {
       "owner": "TomLeeLive",
@@ -113,6 +113,34 @@
         "README.md": false
       },
       "path": "souls/clawsouls/surgical-coder"
+    },
+    {
+      "owner": "clawsouls",
+      "name": "tech-writer",
+      "displayName": "Tech Writer",
+      "version": "1.0.0",
+      "description": "Clear, concise technical documentation writer. Turns complex systems into readable docs.",
+      "category": "developer-tools",
+      "author": {
+        "name": "ClawSouls",
+        "github": "clawsouls"
+      },
+      "license": "MIT",
+      "tags": [
+        "documentation",
+        "technical-writing",
+        "clarity",
+        "developer-docs"
+      ],
+      "files": {
+        "soul.json": true,
+        "SOUL.md": true,
+        "IDENTITY.md": true,
+        "STYLE.md": false,
+        "AGENTS.md": true,
+        "README.md": false
+      },
+      "path": "souls/clawsouls/tech-writer"
     }
   ]
 }
